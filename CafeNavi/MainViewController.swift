@@ -8,76 +8,121 @@
 import UIKit
 import NMapsMap
 import CoreLocation
+import SnapKit
+import Alamofire
 
 final class MainViewController: UIViewController{
     
+    var cafeData: [KLDocument] = []
+    
     var locationManager = CLLocationManager()
     lazy var mapOb: NMFNaverMapView = NMFNaverMapView(frame: view.frame)
+    let detailList = UITableView()
     var geo: CLGeocoder = CLGeocoder()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setModal()
+        
         map()
         bind(MainViewModel())
         attribute()
         layout()
     }
     
-    private func setModal(){
-        let detailViewController = ModalViewController()
-           let nav = UINavigationController(rootViewController: detailViewController)
-           // 1
-           nav.modalPresentationStyle = .pageSheet
-
-           // 2
-           if let sheet = nav.sheetPresentationController {
-
-               //medium 사이즈일 때 main View Opacity 제거
-               sheet.prefersGrabberVisible = true
-               sheet.largestUndimmedDetentIdentifier = .medium
-               sheet.prefersEdgeAttachedInCompactHeight = true
-               // 3
-               sheet.detents = [.medium(), .large()]
-
-           }
-           // 4
-           present(nav, animated: true, completion: nil)
+    private func getCafeData(by mapPoint: NMGLatLng){
+        let api = LocalApi()
+         guard let url = api.getLocation(by: mapPoint).url else{ return}
+        
+        print("getCafeData")
+        print("호출하고 있습니다.\(url)")
+       
+        AF.request(url,
+                   method: .get,
+                   parameters: nil,
+                   encoding: URLEncoding.default,
+                   headers: ["Authorization":"KakaoAK eb1800e4dd858d42dcd872afb475b166"])
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: LocationData.self){ response in
+            guard case .success(let data) = response.result else {return}
+            
+            self.cafeData = data.documents
+            print("cafeData : \(self.cafeData)")
+            self.detailList.reloadData()
+        }
+        
     }
-//    private func setModal(){
-//        self.definesPresentationContext = true
-//        let modalViewController = ModalViewController()
-//           modalViewController.definesPresentationContext = true
-//        modalViewController.modalPresentationStyle = .currentContext
-//           navigationController?.present(modalViewController, animated: true, completion: nil)
-//    }
-
 }
-
 
 //UI 설정 및 autolayout 설정
 extension MainViewController{
     
     private func bind(_ VM: MainViewModel){
+        //delegate
+        mapOb.mapView.addCameraDelegate(delegate: self)
         
+        
+        self.detailList.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        detailList.dataSource = self
+        detailList.delegate = self
+        
+        let input = MainViewModel.Input()
+        
+        let output = VM.transform(input: input)
     }
     
     private func attribute(){
-
+        
+        detailList.backgroundColor = .white
         mapOb.showLocationButton = true
         mapOb.showZoomControls = true
         
     }
     
     private func layout(){
-        [mapOb].forEach{
+        [mapOb,detailList].forEach{
             view.addSubview($0)
         }
+        mapOb.snp.makeConstraints{
+            $0.leading.top.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.snp.centerY).offset(100)
+        }
+        
+        detailList.snp.makeConstraints{
+            $0.centerX.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(mapOb.snp.bottom)
+        }
+        
+
     }
 }
 
+extension MainViewController: UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.cafeData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = self.detailList.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = self.cafeData[indexPath.row].placeName
+        return cell
+    }
+    
+    
+    
+    
+}
+
+extension MainViewController: NMFMapViewCameraDelegate{
+ 
+    //카메라 이동한 후 좌표
+    func mapViewCameraIdle(_ mapView: NMFMapView) {
+        print("카메라 이동 후 좌표 :\(mapView.cameraPosition)")
+        getCafeData(by: mapView.cameraPosition.target)
+    }
+}
 
 // location 정보 받아오기
 extension MainViewController: CLLocationManagerDelegate{

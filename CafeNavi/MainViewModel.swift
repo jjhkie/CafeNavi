@@ -6,8 +6,26 @@
 //
 
 import Foundation
+import RxSwift
 
 
-class MainViewModel{
+final class MainViewModel{
+    var disposeBag = DisposeBag()
     
+    struct Input{
+        
+    }
+    
+    struct Output{
+        
+    }
+    
+    init(){
+        
+    }
+    
+    func transform(input: Input) -> Output{
+        
+        return Output()
+    }
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct MainModel{
-    var localNetwork: LocalNetwork
-    
-    init(localNetwork: LocalNetwork = LocalNetwork()) {
-        self.localNetwork = localNetwork
-    }
-    
-}
+//struct MainModel{
+//    var localNetwork: LocalNetwork
+//    
+//    init(localNetwork: LocalNetwork = LocalNetwork()) {
+//        self.localNetwork = localNetwork
+//    }
+//    
+//}

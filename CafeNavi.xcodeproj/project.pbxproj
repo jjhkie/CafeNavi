@@ -22,7 +22,6 @@
 		B9376E732910D8C40002AC82 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9376E722910D8C40002AC82 /* TabBar.swift */; };
 		B9376E762910D9FB0002AC82 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9376E752910D9FB0002AC82 /* MainViewController.swift */; };
 		B9376E7A2910DA260002AC82 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9376E792910DA260002AC82 /* MyPageViewController.swift */; };
-		B9376E7D2910E5270002AC82 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9376E7C2910E5270002AC82 /* ModalViewController.swift */; };
 		FBC86DB5DF0C1715E79C669E /* Pods_CafeNavi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35B442FE45F378E1F3FD96D5 /* Pods_CafeNavi.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +46,6 @@
 		B9376E722910D8C40002AC82 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		B9376E752910D9FB0002AC82 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B9376E792910DA260002AC82 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		B9376E7C2910E5270002AC82 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				B9376E752910D9FB0002AC82 /* MainViewController.swift */,
-				B9376E7C2910E5270002AC82 /* ModalViewController.swift */,
 				B9306B272912579200F711E8 /* MainViewModel.swift */,
 				B9361C7C2913752E0040AB0E /* MainModel.swift */,
 			);
@@ -295,7 +292,6 @@
 				B92C57DA290FA7E900CE2A0A /* SceneDelegate.swift in Sources */,
 				B9361C7D2913752E0040AB0E /* MainModel.swift in Sources */,
 				B9376E732910D8C40002AC82 /* TabBar.swift in Sources */,
-				B9376E7D2910E5270002AC82 /* ModalViewController.swift in Sources */,
 				B9306B282912579200F711E8 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

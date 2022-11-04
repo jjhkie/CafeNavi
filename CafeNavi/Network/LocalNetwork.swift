@@ -8,14 +8,14 @@
 import RxSwift
 import NMapsMap
 
-//class LocalNetwork {
-//    private let session: URLSession
-//    let api = LocalApi()
-//
-//    init(session: URLSession = .shared) {
-//        self.session = session
-//    }
-//
+class LocalNetwork {
+    private let session: URLSession
+    let api = LocalApi()
+
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
+
 //    func getLocation(by mapPoint: NMGLatLng) -> Single<Result<LocationData, URLError>>{
 //        guard let url = api.getLocation(by: mapPoint).url else{
 //            return .just(.failure(URLError(.badURL)))
@@ -37,4 +37,4 @@ import NMapsMap
 //            .catch{ _ in .just(Result.failure(URLError(.cannotLoadFromNetwork)))}
 //            .asSingle()
 //    }
-//}
+}

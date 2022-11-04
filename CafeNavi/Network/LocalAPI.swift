@@ -8,7 +8,7 @@
 import Foundation
 import NMapsMap
 
-
+//kakao 카테고리로 장소 검색하기
 struct LocalApi{
     static let scheme = "https"
     static let host = "dapi.kakao.com"
@@ -19,7 +19,6 @@ struct LocalApi{
         components.scheme = LocalApi.scheme
         components.host = LocalApi.host
         components.path = LocalApi.path
-        
         
         components.queryItems = [
             URLQueryItem(name: "category_group_code", value: "CE7"),

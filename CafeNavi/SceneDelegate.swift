@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         
         let root = RootTabController()
+
         
         window?.rootViewController = root
         window?.makeKeyAndVisible()
